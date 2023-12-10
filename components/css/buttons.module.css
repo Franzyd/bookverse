@@ -1,7 +1,7 @@
 .sectionBorder {
     border: 5px solid #000;
     border-radius: 35px;
-    
+    padding: 20px;
 }
 
 /* .navButton {

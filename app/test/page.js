@@ -1,7 +1,7 @@
 import NavButtons from "@/components/buttons"
 
-const text = ['Hello']
-const link = ['/test']
+const text = ['Hello', 'Cześć']
+const link = ['/test', '/test']
 
 export default function Home() {
     return (

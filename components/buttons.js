@@ -18,16 +18,19 @@ import SectionBorder from './sections';
  * @param {string=} props.color Color of the box border
  * @returns 
  */
-export default function NavButtons (props) {
-  let icons = props.icon
-  if (props.icon === undefined) icons = []
-  const Lnk = (link) => {
-    if (link === undefined) return <></>
-    return <Link href={link}/>
+export default function NavButtons ({children, text, icon, link, color}) {
+  let icons = icon
+  if (icon === undefined) icons = []
+  let links = link
+  if (link === undefined) links = []
+
+  const Lnk = ({children, link}) => {
+    if (link === undefined) return <>{children}</>
+    return <Link href={link}>{children}</Link>
   }
   
-  const Img = (image) => {
-    if (image === undefined) return <></>
+  const Img = ({children, image}) => {
+    if (image === undefined || image == '') return <></>
     return <Image
       src ={image}
       height={0}
@@ -35,32 +38,32 @@ export default function NavButtons (props) {
       sizes='100vw'
       style={{ width: 'auto', height: '100%' }}
       alt='Button icon'
-    />
+    >{children}</Image>
   }
 
   const List = () => {
     const linkList = []
-    if (!Array.isArray(props.text)) {
+    if (!Array.isArray(text)) {
       return <></>
     }
-    for (let i = 0; i < props.text.length; i++) {
-      linkList.push( <>
-        <Lnk link={props.text[i]}>
+    for (let i = 0; i < text.length; i++) {
+      linkList.push( <div>
+        <Lnk link={links[i]}>
           <Img image={icons[i]}/>
-          <span>{props.text}</span>
+          <span>{text[i]}</span>
         </Lnk>
-        {i < props.text.length - 1 && <hr/>}
-      </>)
+        {i < text.length - 1 && <hr/>}
+      </div>)
     }
-    return linkList.map(el => el)
+    return linkList.map((el) => <>{el}</>)
   }
 
-  let col = props.color
+  let col = color
   if (col === undefined) col = '#000'
 
   return (
     <SectionBorder color={col}>
-      Test
+      {children}
       <List/>
     </SectionBorder>
   )
