@@ -1,7 +1,7 @@
-import styles from './css/buttons.module.css'
+import styles from './css/sections.module.css'
 
-export default function SectionBorder (props) { // color
+export default function SectionBorder ({children, color}) {
   return (
-    <section className={styles.sectionBorder} style={{ borderColor: props.color }}>{props.children}</section>
+    <section className={styles.sectionBorder} style={{ borderColor: color }}>{children}</section>
   );
 };

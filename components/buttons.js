@@ -63,8 +63,10 @@ export default function NavButtons ({children, text, icon, link, color}) {
 
   return (
     <SectionBorder color={col}>
-      {children}
-      <List/>
+      <div style={{margin: '20px'}}>
+        {children}
+        <List/>
+      </div>
     </SectionBorder>
   )
 }
