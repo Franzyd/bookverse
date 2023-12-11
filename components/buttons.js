@@ -15,17 +15,18 @@ import SectionBorder from './sections';
  * @param {string[]} props.text Mandatory, text displayed in buttons
  * @param {string[]=} props.icon Icons displayed to the left of text
  * @param {string[]=} props.link Links to outside URLs or internal pages as filepaths, e.g. '/test/page'
+ * @param {number} [props.selected=-1] Sets which button should be highlighted. Default of -1 means no highlight.
  * @param {string=} props.color Color of the box border
  * @returns 
  */
-export default function NavButtons ({children, text, icon, link, color}) {
+export default function NavButtons ({children, text, icon, link, selected=-1, color}) {
   let icons = icon
   if (icon === undefined) icons = []
   let links = link
   if (link === undefined) links = []
 
   const Lnk = ({children, link}) => {
-    if (link === undefined) return <>{children}</>
+    if (link === undefined || link == '') return <>{children}</>
     return <Link href={link}>{children}</Link>
   }
   
@@ -50,7 +51,7 @@ export default function NavButtons ({children, text, icon, link, color}) {
       linkList.push( <div>
         <Lnk link={links[i]}>
           <Img image={icons[i]}/>
-          <span>{text[i]}</span>
+          <span style={{ backgroundColor: i == selected? 'yellow' : 'none'}}>{text[i]}</span>
         </Lnk>
         {i < text.length - 1 && <hr/>}
       </div>)
