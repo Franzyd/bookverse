@@ -3,6 +3,7 @@ package com.bookverseApp.bookverse.user;
 
 import com.bookverseApp.bookverse.jpa.ReviewRepository;
 import com.bookverseApp.bookverse.jpa.UserRepository;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -52,7 +53,7 @@ public class UserResource {
         return user.get().getReviews();
     }
     @PostMapping("/signup")
-    public ResponseEntity<User> createUser(@Valid @RequestBody User user) {
+    public ResponseEntity<User> createUser(@Valid @RequestBody User user, HttpSession session) {
        user.setPassword(passwordEncoder.encode(user.getPassword()));
         User savedUser = userRepository.save(user);
         URI location = ServletUriComponentsBuilder
@@ -60,8 +61,22 @@ public class UserResource {
                 .path("/{login}")
                 .buildAndExpand(savedUser.getLogin())
                 .toUri();
+        session.setAttribute("user", savedUser);
         return ResponseEntity.created(location).build();
     }
+
+    @PostMapping("/login")
+    public ResponseEntity<User> loginUser(@Valid @RequestBody User requestUser, HttpSession session) {
+        Optional<User> user = userRepository.findById(requestUser.getLogin());
+        if (user.isEmpty())
+            throw new UserNotFoundException("login:" + requestUser.getLogin());
+        if (!passwordEncoder.matches(requestUser.getPassword(), user.get().getPassword()))
+            throw new UserNotFoundException("login:" + requestUser.getLogin());
+        ///Save user in session
+        session.setAttribute("user", user.get());
+        return ResponseEntity.ok().build();
+    }
+
     @PostMapping("/users/{login}/reviews")
     public ResponseEntity<Object> createReviewForUser(@PathVariable String login, @Valid @RequestBody Review review) {
         Optional<User> user = userRepository.findById(login);
