@@ -2,6 +2,7 @@ package com.bookverseApp.bookverse.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 
 @Entity
 public class Review {
@@ -9,6 +10,8 @@ public class Review {
     @GeneratedValue
     private Integer id;
     private String book;
+
+    @Column(length = 10000)
     private String review;
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnore
