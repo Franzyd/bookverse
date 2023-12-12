@@ -26,9 +26,16 @@
 
 .book {
     display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 0px;
+}
+
+.bookCover {
+    display: flex;
     justify-content: center;
     align-items: center;
     height: 200px;
-    width: 100px;
-    margin: 20px;
+    width: 125px;
 }

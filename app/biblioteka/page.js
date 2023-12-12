@@ -28,28 +28,46 @@ export default function Biblioteka() { //div styling for now, later change globa
         <main className={styles.mainContent}>
             <h1>Czytane</h1>
             <div className={styles.booksRow}>
-                <SectionBorder>
-                    <div className={styles.book}>Book</div>
-                </SectionBorder>
-                <SectionBorder>
-                    <div className={styles.book}>Book</div>
-                </SectionBorder>
-                <SectionBorder>
-                    <div className={styles.book}>Book</div>
-                </SectionBorder>
-                <SectionBorder>
-                    <div className={styles.book}>Book</div>
-                </SectionBorder>
+                <article className={styles.book}>
+                    <SectionBorder>
+                        <div className={styles.bookCover}>Book</div>
+                    </SectionBorder>
+                    <h4>BookTitle</h4>
+                </article>
+                <article className={styles.book}>
+                    <SectionBorder>
+                        <div className={styles.bookCover}>Book</div>
+                    </SectionBorder>
+                    <h4>BookTitle</h4>
+                </article>
+                <article className={styles.book}>
+                    <SectionBorder>
+                        <div className={styles.bookCover}>Book</div>
+                    </SectionBorder>
+                    <h4>BookTitle</h4>
+                </article>
+                <article className={styles.book}>
+                    <SectionBorder>
+                        <div className={styles.bookCover}>Book</div>
+                    </SectionBorder>
+                    <h4>BookTitle</h4>
+                </article>
             </div>
             <hr/>
             <h1>Przeczytane</h1>
             <div className={styles.booksRow}>
-                <SectionBorder>
-                    <div className={styles.book}>Book</div>
-                </SectionBorder>
-                <SectionBorder>
-                    <div className={styles.book}>Book</div>
-                </SectionBorder>
+                <article className={styles.book}>
+                    <SectionBorder>
+                        <div className={styles.bookCover}>Book</div>
+                    </SectionBorder>
+                    <h4>BookTitle</h4>
+                </article>
+                <article className={styles.book}>
+                    <SectionBorder>
+                        <div className={styles.bookCover}>Book</div>
+                    </SectionBorder>
+                    <h4>BookTitle</h4>
+                </article>
             </div>
         </main>
     </div>)
