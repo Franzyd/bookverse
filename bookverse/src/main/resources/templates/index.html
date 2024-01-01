@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Review List</title>
+</head>
+<body>
+
+<h1>Review List</h1>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>User Login</th>
+        <th>Book</th>
+        <th>Date</th>
+        <th>Review</th>
+        <th>Likes Amount</th>
+        <th>Comments Amount</th>
+        <th>Share  Amount</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="review : ${reviews}">
+        <td th:text="${review.id}"></td>
+        <td th:text="${review.user.login}"></td>
+        <td th:text="${review.book}"></td>
+        <td th:text="${review.date}"></td>
+        <td th:utext="${review.review}"></td>
+        <td th:text="${review.likesAmount}"></td>
+        <td th:text="${review.commentsAmount}"></td>
+        <td th:text="${review.shareAmount}"></td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

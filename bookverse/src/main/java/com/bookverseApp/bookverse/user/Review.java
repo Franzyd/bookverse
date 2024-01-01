@@ -1,6 +1,7 @@
 package com.bookverseApp.bookverse.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 
@@ -12,18 +13,17 @@ public class Review {
     @GeneratedValue
     private Integer id;
     private String book;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JsonIgnore
     private User user;
     private LocalDateTime date;
-    @Column(length = 10000)
     private String review;
     @Size(min = 0)
     private Integer likesAmount;
     @Size(min = 0)
     private Integer commentsAmount;
     @Size(min = 0)
-    private Integer saveAmount;
+    private Integer shareAmount;
 
 //    public Review(Integer id, String book, String review) {
 //        super();
@@ -41,7 +41,7 @@ public class Review {
         this.review = review;
         this.likesAmount = 0;
         this.commentsAmount = 0;
-        this.saveAmount = 0;
+        this.shareAmount = 0;
     }
 
     public Review() {
@@ -104,13 +104,19 @@ public class Review {
         this.commentsAmount = commentsAmount;
     }
 
-    public Integer getSaveAmount() {
-        return saveAmount;
+    public Integer getShareAmount() {
+        return shareAmount;
     }
 
-    public void setSaveAmount(Integer saveAmount) {
-        this.saveAmount = saveAmount;
+    public void setShareAmount(Integer saveAmount) {
+        this.shareAmount = saveAmount;
     }
+
+    @JsonProperty("userLogin")
+    public String getUserLogin() {
+        return user.getLogin();
+    }
+
 
     @Override
     public String toString() {
@@ -122,7 +128,7 @@ public class Review {
                 ", review='" + review + '\'' +
                 ", likesAmount=" + likesAmount +
                 ", commentsAmount=" + commentsAmount +
-                ", saveAmount=" + saveAmount +
+                ", saveAmount=" + shareAmount +
                 '}';
     }
 }
