@@ -1,6 +1,7 @@
 package com.bookverseApp.bookverse.user;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.bookverseApp.bookverse.review.Review;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
@@ -34,7 +35,7 @@ public class User {
     private String password;
 
     @OneToMany(mappedBy = "user")
-    @JsonIgnore
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private List<Review> reviews;
 
     public User(String login, String name, String lastName, String email, String password) {

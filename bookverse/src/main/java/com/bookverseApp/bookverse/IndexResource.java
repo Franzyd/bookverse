@@ -1,10 +1,11 @@
 package com.bookverseApp.bookverse;
 
+import com.bookverseApp.bookverse.jpa.ReviewRepository;
+import com.bookverseApp.bookverse.review.Review;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import com.bookverseApp.bookverse.jpa.ReviewRepository;
-import com.bookverseApp.bookverse.user.Review;
+
 import java.util.Collections;
 import java.util.List;
 
@@ -12,7 +13,6 @@ import java.util.List;
 public class IndexResource {
 
     private final ReviewRepository reviewRepository;
-
     public IndexResource(ReviewRepository reviewRepository) {
         this.reviewRepository = reviewRepository;
     }

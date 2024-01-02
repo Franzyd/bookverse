@@ -9,25 +9,38 @@
 <body>
 
 <h1>Review List</h1>
-
 <table border="1">
     <thead>
     <tr>
         <th>ID</th>
         <th>User Login</th>
-        <th>Book</th>
+        <th>Book ID</th>
+        <th>Book Author</th>
+        <th>Book Title</th>
+        <th>Book Genre</th>
+        <th>Book Description</th>
+        <th>Book Cover</th>
+        <th>Book Pages</th>
         <th>Date</th>
         <th>Review</th>
         <th>Likes Amount</th>
         <th>Comments Amount</th>
-        <th>Share  Amount</th>
+        <th>Share Amount</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="review : ${reviews}">
         <td th:text="${review.id}"></td>
-        <td th:text="${review.user.login}"></td>
-        <td th:text="${review.book}"></td>
+        <td th:text="${review.userLogin}"></td>
+        <td th:text="${review.book.id}"></td>
+        <td th:text="${review.book.author}"></td>
+        <td th:text="${review.book.title}"></td>
+        <td th:text="${review.book.genre}"></td>
+        <td th:utext="${review.book.description}"></td>
+        <td>
+            <img th:src="@{${review.book.coverPath}}" alt="Book Cover" width="100">
+        </td>
+        <td th:text="${review.book.pagesAmount}"></td>
         <td th:text="${review.date}"></td>
         <td th:utext="${review.review}"></td>
         <td th:text="${review.likesAmount}"></td>

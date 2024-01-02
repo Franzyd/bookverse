@@ -1,8 +1,13 @@
 package com.bookverseApp.bookverse.user;
 
 
+import com.bookverseApp.bookverse.exceptions.ReviewNotFoundException;
+import com.bookverseApp.bookverse.exceptions.UserNotAuthenticatedException;
+import com.bookverseApp.bookverse.exceptions.UserNotFoundException;
+import com.bookverseApp.bookverse.jpa.BoookRepository;
 import com.bookverseApp.bookverse.jpa.ReviewRepository;
 import com.bookverseApp.bookverse.jpa.UserRepository;
+import com.bookverseApp.bookverse.review.Review;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -21,8 +26,7 @@ public class UserResource {
     private final ReviewRepository reviewRepository;
     private final PasswordEncoder passwordEncoder;
 
-
-    public UserResource(UserRepository userRepository, ReviewRepository reviewRepository, PasswordEncoder passwordEncoder) {
+    public UserResource(UserRepository userRepository, ReviewRepository reviewRepository, PasswordEncoder passwordEncoder, BoookRepository boookRepository) {
         this.userRepository = userRepository;
         this.reviewRepository = reviewRepository;
         this.passwordEncoder = passwordEncoder;
@@ -34,7 +38,10 @@ public class UserResource {
     }
 
     @GetMapping("/users/{login}")
-    public User retrieveUser(@PathVariable String login) {
+    public User retrieveUser(@PathVariable String login, HttpSession session) {
+        if (session.getAttribute("user") == null) {
+            throw new UserNotAuthenticatedException("User not authenticated");
+        }
         Optional<User> user = userRepository.findById(login);
         if (user.isEmpty())
             throw new UserNotFoundException("login:" + login);
@@ -45,16 +52,10 @@ public class UserResource {
     public void deleteUser(@PathVariable String login) {
         userRepository.deleteById(login);
     }
-    @GetMapping("/users/{login}/reviews")
-    public List<Review> retrieveReviewsForAllUsers(@PathVariable String login) {
-        Optional<User> user = userRepository.findById(login);
-        if (user.isEmpty())
-            throw new UserNotFoundException("login:" + login);
-        return user.get().getReviews();
-    }
+
     @PostMapping("/signup")
     public ResponseEntity<User> createUser(@Valid @RequestBody User user, HttpSession session) {
-       user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         User savedUser = userRepository.save(user);
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
@@ -77,22 +78,8 @@ public class UserResource {
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/users/{login}/reviews")
-    public ResponseEntity<Object> createReviewForUser(@PathVariable String login, @Valid @RequestBody Review review) {
-        Optional<User> user = userRepository.findById(login);
-        if (user.isEmpty())
-            throw new UserNotFoundException("login:" + login);
-        review.setUser(user.get());
-        Review savedReview = reviewRepository.save(review);
-        URI location = ServletUriComponentsBuilder
-                .fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(savedReview.getId())
-                .toUri();
-        return ResponseEntity.created(location).build();
-    }
     @GetMapping("/users/{login}/reviews/{id}")
-    public Review retrieveReviewsForUser(@PathVariable String login, @PathVariable Integer id) {
+    public Review retrieveReviewForUser(@PathVariable String login, @PathVariable Integer id) {
         Optional<Review> review = reviewRepository.findById(id);
         if (review.isEmpty())
             throw new ReviewNotFoundException("Review not found id:" + id);
