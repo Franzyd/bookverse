@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Review List</title>
+</head>
+<body>
+
+<h1>Review List</h1>
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>User Login</th>
+        <th>Book ID</th>
+        <th>Book Author</th>
+        <th>Book Title</th>
+        <th>Book Genre</th>
+        <th>Book Description</th>
+        <th>Book Cover</th>
+        <th>Book Pages</th>
+        <th>Date</th>
+        <th>Review</th>
+        <th>Likes Amount</th>
+        <th>Comments Amount</th>
+        <th>Share Amount</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="review : ${reviews}">
+        <td th:text="${review.id}"></td>
+        <td th:text="${review.userLogin}"></td>
+        <td th:text="${review.book.id}"></td>
+        <td th:text="${review.book.author}"></td>
+        <td th:text="${review.book.title}"></td>
+        <td th:text="${review.book.genre}"></td>
+        <td th:utext="${review.book.description}"></td>
+        <td>
+            <img th:src="@{${review.book.coverPath}}" alt="Book Cover" width="100">
+        </td>
+        <td th:text="${review.book.pagesAmount}"></td>
+        <td th:text="${review.date}"></td>
+        <td th:utext="${review.review}"></td>
+        <td th:text="${review.likesAmount}"></td>
+        <td th:text="${review.commentsAmount}"></td>
+        <td th:text="${review.shareAmount}"></td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
