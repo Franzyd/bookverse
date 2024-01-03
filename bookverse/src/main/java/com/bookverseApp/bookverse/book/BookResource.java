@@ -3,7 +3,9 @@ package com.bookverseApp.bookverse.book;
 import com.bookverseApp.bookverse.exceptions.BookExistsException;
 import com.bookverseApp.bookverse.exceptions.BookNotFoundException;
 import com.bookverseApp.bookverse.exceptions.SomethingWentWrongException;
+import com.bookverseApp.bookverse.exceptions.UserNotAuthenticatedException;
 import com.bookverseApp.bookverse.jpa.BookRepository;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.core.env.Environment;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
@@ -48,8 +50,10 @@ public class BookResource {
     }
 
     @PostMapping("/addBook")
-    public ResponseEntity<Book> addBook(@RequestPart Book book, @RequestPart MultipartFile file) {
-
+    public ResponseEntity<Book> addBook(@RequestPart Book book, @RequestPart MultipartFile file, HttpSession session) {
+        if (session.getAttribute("user") == null) {
+            throw new UserNotAuthenticatedException("User not authenticated");
+        }
         if (bookRepository.existsByTitle(book.getTitle())) {
             throw new BookExistsException("Book with title: " + book.getTitle() + " already exists");
         }

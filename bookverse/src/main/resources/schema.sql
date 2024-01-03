@@ -10,9 +10,12 @@ DROP
  SEQUENCE IF EXISTS books_seq;
 DROP
  SEQUENCE IF EXISTS reviews_seq;
+DROP
+    SEQUENCE IF EXISTS library_seq;
 
 CREATE SEQUENCE IF NOT EXISTS books_seq START WITH 22 INCREMENT BY 1;
 CREATE SEQUENCE IF NOT EXISTS reviews_seq START WITH 22 INCREMENT BY 1;
+CREATE SEQUENCE IF NOT EXISTS library_seq START WITH 22 INCREMENT BY 1;
 
 CREATE TABLE books (
   id integer not null,
@@ -24,6 +27,15 @@ CREATE TABLE books (
   pages_amount integer not null,
   primary key (id)
 );
+
+CREATE TABLE library (
+    id integer not null,
+    user_login varchar(255),
+    book_id integer,
+    number_of_pages_read integer,
+    primary key (id)
+);
+
 CREATE TABLE reviews (
   id integer not null,
   user_login varchar(255),

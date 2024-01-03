@@ -36,9 +36,9 @@ public class ReviewResource {
 
     @GetMapping("/reviews")
     public List<Review> retrieveAllReviews(HttpSession session) {
-        if (session.getAttribute("user") == null) {
-            throw new UserNotAuthenticatedException("User not authenticated");
-        }
+//        if (session.getAttribute("user") == null) {
+//            throw new UserNotAuthenticatedException("User not authenticated");
+//        }
         return reviewRepository.findAll();
     }
 

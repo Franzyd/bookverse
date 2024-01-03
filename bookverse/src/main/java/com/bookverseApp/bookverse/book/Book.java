@@ -1,5 +1,6 @@
 package com.bookverseApp.bookverse.book;
 
+import com.bookverseApp.bookverse.jpa.BookRepository;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
@@ -101,4 +102,9 @@ public class Book {
     public void setCoverPath(String coverPath) {
         this.coverPath = coverPath;
     }
+
+    public Integer getReadingProgress(Integer numberOfPagesRead){
+        return (int) Math.floor((numberOfPagesRead.doubleValue() / pagesAmount) * 100);
+    }
+
 }

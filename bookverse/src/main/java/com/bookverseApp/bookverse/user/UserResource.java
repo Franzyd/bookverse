@@ -1,12 +1,15 @@
 package com.bookverseApp.bookverse.user;
 
 
+import com.bookverseApp.bookverse.book.Book;
 import com.bookverseApp.bookverse.exceptions.ReviewNotFoundException;
 import com.bookverseApp.bookverse.exceptions.UserNotAuthenticatedException;
 import com.bookverseApp.bookverse.exceptions.UserNotFoundException;
 import com.bookverseApp.bookverse.jpa.BookRepository;
+import com.bookverseApp.bookverse.jpa.LibraryRepository;
 import com.bookverseApp.bookverse.jpa.ReviewRepository;
 import com.bookverseApp.bookverse.jpa.UserRepository;
+import com.bookverseApp.bookverse.library.Library;
 import com.bookverseApp.bookverse.review.Review;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -24,12 +27,18 @@ public class UserResource {
 
     private final UserRepository userRepository;
     private final ReviewRepository reviewRepository;
+    private final LibraryRepository libraryRepository;
+    private final BookRepository bookRepository;
+
     private final PasswordEncoder passwordEncoder;
 
-    public UserResource(UserRepository userRepository, ReviewRepository reviewRepository, PasswordEncoder passwordEncoder, BookRepository bookRepository) {
+
+    public UserResource(UserRepository userRepository, ReviewRepository reviewRepository, PasswordEncoder passwordEncoder, LibraryRepository libraryRepository, BookRepository bookRepository) {
         this.userRepository = userRepository;
         this.reviewRepository = reviewRepository;
         this.passwordEncoder = passwordEncoder;
+        this.libraryRepository = libraryRepository;
+        this.bookRepository = bookRepository;
     }
 
     @GetMapping("/users")
@@ -86,5 +95,40 @@ public class UserResource {
         if (!review.get().getUser().getLogin().equals(login))
             throw new ReviewNotFoundException("Review not found id:" + id);
         return review.get();
+    }
+    @GetMapping("/users/library")
+    public List<Library> retrieveLibrary(HttpSession session) {
+//        Make sure user is authenticated
+//        if (session.getAttribute("user") == null) {
+//            throw new UserNotAuthenticatedException("User not authenticated");
+//        }
+//        User user = (User) session.getAttribute("user");
+          return libraryRepository.findByUserLogin("johnson");
+    }
+    @PostMapping("/users/library/readingStop/{finishPage}")
+    public ResponseEntity<Object> readingStart(@PathVariable Integer finishPage, @RequestParam String bookTitle, HttpSession session) {
+//        Make sure user is authenticated
+//        if (session.getAttribute("user") == null) {
+//            throw new UserNotAuthenticatedException("User not authenticated");
+//        }
+//        User user = (User) session.getAttribute("user");
+        Optional<User> user = userRepository.findByLogin("johnson");
+        Optional<Library> saveLibrary = libraryRepository.findByUserLoginAndBookTitle(user.get().getLogin(), bookTitle);
+        if (saveLibrary.isEmpty()) {
+                System.out.println(bookTitle);
+                Optional<Book> book = bookRepository.findByTitle(bookTitle);
+                Library newLibrary = new Library(user.get(), book.get(), finishPage);
+                libraryRepository.save(newLibrary);
+        }else {
+            saveLibrary.get().setNumberOfPagesRead(finishPage);
+            libraryRepository.save(saveLibrary.get());
+        }
+        URI location = ServletUriComponentsBuilder
+                .fromPath("/users/library")
+                .path("/{login}")
+//                .buildAndExpand(((User) session.getAttribute("user")).getLogin())
+                .buildAndExpand("johnson")
+                .toUri();
+        return ResponseEntity.status(302).location(location).build();
     }
 }

@@ -433,3 +433,28 @@ VALUES
      'madalenakw', DATEADD('HOUR', -10, CURRENT_TIMESTAMP),
      45, 0, 3
    );
+INSERT INTO library (
+    id, user_login, book_id, number_of_pages_read
+)
+VALUES
+    (1, 'maitiri_books_2', 1, 464),
+    (2, 'maitiri_books_2', 2, 320),
+    (3, 'maitiri_books_2', 3, 336),
+    (4, 'maitiri_books_2', 4, 634),
+    (5, 'maitiri_books_2', 5, 494),
+    (6, 'johnson', 6, 312),
+    (7, 'johnson', 7, 160),
+    (8, 'johnson', 8, 566),
+    (9, 'johnson', 9, 800),
+    (10, 'johnson', 10, 464),
+    (11, 'chomiczek71', 11, 100),
+    (12, 'chomiczek71', 12, 463),
+    (13, 'chomiczek71', 13, 140),
+    (14, 'chomiczek71', 14, 418),
+    (15, 'chomiczek71', 15, 331),
+    (16, 'madalenakw', 16, 320),
+    (17, 'madalenakw', 17, 201),
+    (18, 'madalenakw', 18, 237),
+    (19, 'madalenakw', 19, 624),
+    (20, 'madalenakw', 20, 363),
+    (21, 'madalenakw', 21, 448);
