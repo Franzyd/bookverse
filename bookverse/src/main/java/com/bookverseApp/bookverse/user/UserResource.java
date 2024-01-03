@@ -4,7 +4,7 @@ package com.bookverseApp.bookverse.user;
 import com.bookverseApp.bookverse.exceptions.ReviewNotFoundException;
 import com.bookverseApp.bookverse.exceptions.UserNotAuthenticatedException;
 import com.bookverseApp.bookverse.exceptions.UserNotFoundException;
-import com.bookverseApp.bookverse.jpa.BoookRepository;
+import com.bookverseApp.bookverse.jpa.BookRepository;
 import com.bookverseApp.bookverse.jpa.ReviewRepository;
 import com.bookverseApp.bookverse.jpa.UserRepository;
 import com.bookverseApp.bookverse.review.Review;
@@ -26,7 +26,7 @@ public class UserResource {
     private final ReviewRepository reviewRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public UserResource(UserRepository userRepository, ReviewRepository reviewRepository, PasswordEncoder passwordEncoder, BoookRepository boookRepository) {
+    public UserResource(UserRepository userRepository, ReviewRepository reviewRepository, PasswordEncoder passwordEncoder, BookRepository bookRepository) {
         this.userRepository = userRepository;
         this.reviewRepository = reviewRepository;
         this.passwordEncoder = passwordEncoder;

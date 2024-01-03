@@ -38,6 +38,14 @@ public class Book {
         this.coverPath = coverPath;
     }
 
+    public Book(String author, String title, String genre, String description, Integer pagesAmount) {
+        this.author = author;
+        this.title = title;
+        this.genre = genre;
+        this.description = description;
+        this.pagesAmount = pagesAmount;
+    }
+
     public Integer getId() {
         return id;
     }

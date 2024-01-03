@@ -4,7 +4,7 @@ package com.bookverseApp.bookverse.review;
 import com.bookverseApp.bookverse.book.Book;
 import com.bookverseApp.bookverse.exceptions.BookNotFoundException;
 import com.bookverseApp.bookverse.exceptions.UserNotAuthenticatedException;
-import com.bookverseApp.bookverse.jpa.BoookRepository;
+import com.bookverseApp.bookverse.jpa.BookRepository;
 import com.bookverseApp.bookverse.jpa.ReviewRepository;
 import com.bookverseApp.bookverse.jpa.UserRepository;
 import com.bookverseApp.bookverse.user.User;
@@ -26,12 +26,12 @@ public class ReviewResource {
 
     private final UserRepository userRepository;
     private final ReviewRepository reviewRepository;
-    private final BoookRepository boookRepository;
+    private final BookRepository bookRepository;
 
-    public ReviewResource(UserRepository userRepository, ReviewRepository reviewRepository, BoookRepository boookRepository) {
+    public ReviewResource(UserRepository userRepository, ReviewRepository reviewRepository, BookRepository bookRepository) {
         this.userRepository = userRepository;
         this.reviewRepository = reviewRepository;
-        this.boookRepository = boookRepository;
+        this.bookRepository = bookRepository;
     }
 
     @GetMapping("/reviews")
@@ -48,7 +48,7 @@ public class ReviewResource {
 //            throw new UserNotAuthenticatedException("User not authenticated");
 //        }
         Optional<User> user = userRepository.findById("johnson");
-        Optional<Book> book = boookRepository.findByTitle(reviewRequest.getBookName());
+        Optional<Book> book = bookRepository.findByTitle(reviewRequest.getBookName());
         if (book.isEmpty())
             throw new BookNotFoundException("Book not found name:" + reviewRequest.getBookName());
         Review savedReview = reviewRepository.save(new Review(book.get(), reviewRequest.getReview(), user.get()));
