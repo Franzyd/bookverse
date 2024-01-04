@@ -49,6 +49,21 @@ public class BookResource {
         return booksOfThisGenre;
     }
 
+    @GetMapping("/books/{id}")
+    public Book retrieveBookById(@PathVariable int id) {
+        return bookRepository.findById(id)
+                .orElseThrow(() -> new BookNotFoundException("Book with id: " + id + " not found"));
+    }
+
+    @PostMapping("/books")
+    public List<Book> retrieveBooksByName(@RequestParam String bookTitle){
+        List<Book> result = bookRepository.findByTitleContaining(bookTitle);
+        if (result.isEmpty()) {
+            throw new BookNotFoundException("No books found for title: " + bookTitle);
+        }
+        return result;
+    }
+
     @PostMapping("/addBook")
     public ResponseEntity<Book> addBook(@RequestPart Book book, @RequestPart MultipartFile file, HttpSession session) {
         if (session.getAttribute("user") == null) {
@@ -92,12 +107,6 @@ public class BookResource {
                 .buildAndExpand(savedBook.getId())
                 .toUri();
         return ResponseEntity.created(location).build();
-    }
-
-    @GetMapping("/books/{id}")
-    public Book retrieveBook(@PathVariable int id) {
-        return bookRepository.findById(id)
-                .orElseThrow(() -> new BookNotFoundException("Book with id: " + id + " not found"));
     }
 
     private String generateUniqueFileName(String fileExtension) {
