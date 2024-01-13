@@ -1,0 +1,20 @@
+[
+    {
+        "id": 1,
+        "author": "Geneva Lee",
+        "title": "Trzy królowe",
+        "genre": "Romans",
+        "description": "<p>Cała magia umrze, a wraz z nią wszyscy, którzy nią władają.</p>\n<p>Trzeci tom porywającej historii miłosnej rozgrywającej się w luksusowym świecie bogatych wampirów.</p>\n<p>Thea i Julian muszą stawić czoła konsekwencjom swojego wyboru. Podczas balu z okazji zimowego przesilenia planują ogłosić status swojego związku przed społecznością wampirów. Jednak niespodziewane wypadki zmienią bieg wydarzeń tej nocy.</p>\n<p>Matka Thei znika, a wszystkie wskazówki prowadzą do Wenecji. Kiedy Thea zostaje porwana, Julian będzie musiał zmierzyć się z niebezpieczeństwami i swoją przeszłością. Stawić czoło potworowi, którym kiedyś był. Wkrótce ich miłość i cały magiczny świat staną na krawędzi wojny. Czy uda im się uniknąć konfliktu i przetrwać, czy może będą musieli zapłacić najwyższą cenę?</p>",
+        "coverPath": "/1.jpeg",
+        "pagesAmount": 464
+    },
+    {
+        "id": 2,
+        "author": "Stephanie Garber",
+        "title": "Klątwa prawdziwej miłości",
+        "genre": "Fantastyka",
+        "description": "<p>Ostatni tom bestsellerowej trylogii autorki „Caravala”</p>\n<p>Jak zakończy się historia miłosnego trójkąta? Czy Evangelina kiedykolwiek będzie naprawdę szczęśliwa? Z kim przyjdzie dzielić jej życie?</p>\n<p>Wydaje się, że Evangelina Fox znalazła na Cudownej Północy upragnione szczęście. Wyszła za pięknego i kochającego księcia, mieszka w bajecznym zamku i ma zastępy wiernych poddanych. Nie wie jednak, jak ogromną cenę zapłaciła za życie w tej baśni, bo… niczego nie pamięta. Jej mąż zrobi wszystko, żeby nigdy nie dowiedziała się, co naprawdę straciła. Najpierw jednak musi zabić Jacksa, Księcia Serc…</p>\n<p>Poleje się krew, będą złamane serca, a prawdziwa miłość zostanie wystawiona na próbę.</p>\n<p>Dwa czarne charaktery, jedna dziewczyna i walka na śmierć i życie o szczęśliwe zakończenie.</p>",
+        "coverPath": "/2.jpeg",
+        "pagesAmount": 320
+    }
+]

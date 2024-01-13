@@ -1,3 +1,7 @@
+.hidden {
+    display: none;
+}
+
 .pageBody {
     display: flex;
 }
@@ -29,13 +33,52 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin: 10px 0px;
 }
 
 .bookCover {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.bookImage {
+    box-sizing: border-box;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 200px;
     width: 125px;
+    /* z-index: -1; */
+}
+
+.bookMenu {
+    box-sizing: border-box;
+    position: absolute;
+    left: 50%;
+    top: 0px;
+    bottom: 0px;
+    height: 200px;
+    width: 175%;
+    z-index: 0;
+    display: none;
+}
+
+.bookCover:hover {
+    z-index: 3;
+    .bookImage {
+        z-index: 2;
+    }
+    .bookMenu {
+        display: inline;
+        z-index: 1;
+    }
+}
+
+.bookMenuItems {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: end;
+    font-size: small;
 }
